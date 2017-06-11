@@ -8242,6 +8242,13 @@ var _user$project$Todo$initialModel = {
 };
 var _user$project$Todo$main = _elm_lang$virtual_dom$Native_VirtualDom.staticProgram(
 	_user$project$Todo$view(_user$project$Todo$initialModel));
+var _user$project$Todo$Todo = F3(
+	function (a, b, c) {
+		return {id: a, text: b, completed: c};
+	});
+var _user$project$Todo$Model = function (a) {
+	return {todos: a};
+};
 
 var Elm = {};
 Elm['Todo'] = Elm['Todo'] || {};
