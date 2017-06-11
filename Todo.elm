@@ -1,7 +1,13 @@
 module Todo exposing (..)
 
-import Html exposing (Html, h1, text, div, form, input, ul, li)
-import Html.Attributes exposing (class, type_, placeholder)
+import Html exposing (Html, h1, text, div, form, input, ul, li, button)
+import Html.Attributes exposing (value, class, type_, placeholder)
+import Html.Events exposing (onClick, onInput)
+
+
+type Msg
+    = Save
+    | InputTodo String
 
 
 type alias Todo =
@@ -13,7 +19,12 @@ type alias Todo =
 
 type alias Model =
     { todos : List Todo
+    , newTodo : String
     }
+
+
+
+-- MODEL
 
 
 initialModel : Model
@@ -23,27 +34,69 @@ initialModel =
         , { id = 2, text = "Makan", completed = False }
         , { id = 3, text = "Coding", completed = True }
         ]
+    , newTodo = ""
     }
 
 
-view : Model -> Html msg
+
+-- UPDATE
+
+
+update : Msg -> Model -> Model
+update msg model =
+    case msg of
+        InputTodo newTodo ->
+            { model | newTodo = newTodo }
+
+        Save ->
+            { model
+                | todos = Todo 3 model.newTodo False :: model.todos
+                , newTodo = ""
+            }
+
+
+
+-- VIEW
+
+
+view : Model -> Html Msg
 view model =
     div [ class "container" ]
         [ h1 [] [ text "Elm Todo" ]
-        , form []
-            [ input [ type_ "text", placeholder "What you want to do?" ] []
-            , input [ type_ "submit" ] [ text "Do!" ]
-            ]
-        , ul []
-            (List.map (\todo -> viewTodo todo) model.todos)
+        , viewForm model
+        , viewTodos model
         ]
 
 
-viewTodo : Todo -> Html msg
+viewForm : Model -> Html Msg
+viewForm model =
+    div []
+        [ input
+            [ type_ "text"
+            , placeholder "What you want to do?"
+            , onInput InputTodo
+            , value model.newTodo
+            ]
+            []
+        , button [ onClick Save ] [ text "Do!" ]
+        ]
+
+
+viewTodos : Model -> Html Msg
+viewTodos model =
+    ul []
+        (List.map (\todo -> viewTodo todo) model.todos)
+
+
+viewTodo : Todo -> Html Msg
 viewTodo todo =
     li [] [ text todo.text ]
 
 
-main : Html msg
+main : Program Never Model Msg
 main =
-    view initialModel
+    Html.beginnerProgram
+        { model = initialModel
+        , view = view
+        , update = update
+        }
