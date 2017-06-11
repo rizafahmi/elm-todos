@@ -8,6 +8,7 @@ import Html.Events exposing (onSubmit, onClick, onInput)
 type Msg
     = Save
     | InputTodo String
+    | Done Int
 
 
 type alias Todo =
@@ -45,6 +46,19 @@ initialModel =
 update : Msg -> Model -> Model
 update msg model =
     case msg of
+        Done id ->
+            let
+                toggleComplete todo =
+                    if todo.id == id then
+                        { todo | completed = (not todo.completed) }
+                    else
+                        todo
+
+                newTodos =
+                    List.map toggleComplete model.todos
+            in
+                { model | todos = newTodos }
+
         InputTodo newTodo ->
             { model | newTodo = newTodo }
 
@@ -90,7 +104,11 @@ viewTodos model =
 
 viewTodo : Todo -> Html Msg
 viewTodo todo =
-    li [ classList [ ( "done", todo.completed ) ] ] [ text todo.text ]
+    li
+        [ classList [ ( "done", todo.completed ) ]
+        , onClick (Done todo.id)
+        ]
+        [ text todo.text ]
 
 
 main : Program Never Model Msg

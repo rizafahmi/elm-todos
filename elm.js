@@ -12416,36 +12416,6 @@ var _elm_lang$html$Html_Events$Options = F2(
 		return {stopPropagation: a, preventDefault: b};
 	});
 
-var _user$project$Todo$viewTodo = function (todo) {
-	return A2(
-		_elm_lang$html$Html$li,
-		{
-			ctor: '::',
-			_0: _elm_lang$html$Html_Attributes$classList(
-				{
-					ctor: '::',
-					_0: {ctor: '_Tuple2', _0: 'done', _1: todo.completed},
-					_1: {ctor: '[]'}
-				}),
-			_1: {ctor: '[]'}
-		},
-		{
-			ctor: '::',
-			_0: _elm_lang$html$Html$text(todo.text),
-			_1: {ctor: '[]'}
-		});
-};
-var _user$project$Todo$viewTodos = function (model) {
-	return A2(
-		_elm_lang$html$Html$ul,
-		{ctor: '[]'},
-		A2(
-			_elm_lang$core$List$map,
-			function (todo) {
-				return _user$project$Todo$viewTodo(todo);
-			},
-			model.todos));
-};
 var _user$project$Todo$initialModel = {
 	todos: {
 		ctor: '::',
@@ -12469,31 +12439,80 @@ var _user$project$Todo$Todo = F3(
 var _user$project$Todo$update = F2(
 	function (msg, model) {
 		var _p0 = msg;
-		if (_p0.ctor === 'InputTodo') {
-			return _elm_lang$core$Native_Utils.update(
-				model,
-				{newTodo: _p0._0});
-		} else {
-			return _elm_lang$core$Native_Utils.update(
-				model,
-				{
-					todos: {
-						ctor: '::',
-						_0: A3(
-							_user$project$Todo$Todo,
-							_elm_lang$core$List$length(model.todos) + 1,
-							model.newTodo,
-							false),
-						_1: model.todos
-					},
-					newTodo: ''
-				});
+		switch (_p0.ctor) {
+			case 'Done':
+				var toggleComplete = function (todo) {
+					return _elm_lang$core$Native_Utils.eq(todo.id, _p0._0) ? _elm_lang$core$Native_Utils.update(
+						todo,
+						{completed: !todo.completed}) : todo;
+				};
+				var newTodos = A2(_elm_lang$core$List$map, toggleComplete, model.todos);
+				return _elm_lang$core$Native_Utils.update(
+					model,
+					{todos: newTodos});
+			case 'InputTodo':
+				return _elm_lang$core$Native_Utils.update(
+					model,
+					{newTodo: _p0._0});
+			default:
+				return _elm_lang$core$Native_Utils.update(
+					model,
+					{
+						todos: {
+							ctor: '::',
+							_0: A3(
+								_user$project$Todo$Todo,
+								_elm_lang$core$List$length(model.todos) + 1,
+								model.newTodo,
+								false),
+							_1: model.todos
+						},
+						newTodo: ''
+					});
 		}
 	});
 var _user$project$Todo$Model = F2(
 	function (a, b) {
 		return {todos: a, newTodo: b};
 	});
+var _user$project$Todo$Done = function (a) {
+	return {ctor: 'Done', _0: a};
+};
+var _user$project$Todo$viewTodo = function (todo) {
+	return A2(
+		_elm_lang$html$Html$li,
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html_Attributes$classList(
+				{
+					ctor: '::',
+					_0: {ctor: '_Tuple2', _0: 'done', _1: todo.completed},
+					_1: {ctor: '[]'}
+				}),
+			_1: {
+				ctor: '::',
+				_0: _elm_lang$html$Html_Events$onClick(
+					_user$project$Todo$Done(todo.id)),
+				_1: {ctor: '[]'}
+			}
+		},
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html$text(todo.text),
+			_1: {ctor: '[]'}
+		});
+};
+var _user$project$Todo$viewTodos = function (model) {
+	return A2(
+		_elm_lang$html$Html$ul,
+		{ctor: '[]'},
+		A2(
+			_elm_lang$core$List$map,
+			function (todo) {
+				return _user$project$Todo$viewTodo(todo);
+			},
+			model.todos));
+};
 var _user$project$Todo$InputTodo = function (a) {
 	return {ctor: 'InputTodo', _0: a};
 };
@@ -12585,7 +12604,7 @@ var _user$project$Todo$main = _elm_lang$html$Html$beginnerProgram(
 var Elm = {};
 Elm['Todo'] = Elm['Todo'] || {};
 if (typeof _user$project$Todo$main !== 'undefined') {
-    _user$project$Todo$main(Elm['Todo'], 'Todo', {"types":{"unions":{"Todo.Msg":{"args":[],"tags":{"InputTodo":["String"],"Save":[]}}},"aliases":{},"message":"Todo.Msg"},"versions":{"elm":"0.18.0"}});
+    _user$project$Todo$main(Elm['Todo'], 'Todo', {"types":{"unions":{"Todo.Msg":{"args":[],"tags":{"Done":["Int"],"InputTodo":["String"],"Save":[]}}},"aliases":{},"message":"Todo.Msg"},"versions":{"elm":"0.18.0"}});
 }
 
 if (typeof define === "function" && define['amd'])
