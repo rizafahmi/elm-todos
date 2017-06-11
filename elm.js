@@ -12487,8 +12487,16 @@ var _user$project$Todo$InputTodo = function (a) {
 var _user$project$Todo$Save = {ctor: 'Save'};
 var _user$project$Todo$viewForm = function (model) {
 	return A2(
-		_elm_lang$html$Html$div,
-		{ctor: '[]'},
+		_elm_lang$html$Html$form,
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html_Attributes$method('POST'),
+			_1: {
+				ctor: '::',
+				_0: _elm_lang$html$Html_Events$onSubmit(_user$project$Todo$Save),
+				_1: {ctor: '[]'}
+			}
+		},
 		{
 			ctor: '::',
 			_0: A2(
@@ -12517,7 +12525,7 @@ var _user$project$Todo$viewForm = function (model) {
 					_elm_lang$html$Html$button,
 					{
 						ctor: '::',
-						_0: _elm_lang$html$Html_Events$onClick(_user$project$Todo$Save),
+						_0: _elm_lang$html$Html_Attributes$type_('submit'),
 						_1: {ctor: '[]'}
 					},
 					{

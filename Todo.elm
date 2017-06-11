@@ -1,8 +1,8 @@
 module Todo exposing (..)
 
 import Html exposing (Html, h1, text, div, form, input, ul, li, button)
-import Html.Attributes exposing (value, class, type_, placeholder)
-import Html.Events exposing (onClick, onInput)
+import Html.Attributes exposing (value, class, type_, placeholder, method)
+import Html.Events exposing (onSubmit, onClick, onInput)
 
 
 type Msg
@@ -70,7 +70,7 @@ view model =
 
 viewForm : Model -> Html Msg
 viewForm model =
-    div []
+    form [ method "POST", onSubmit Save ]
         [ input
             [ type_ "text"
             , placeholder "What you want to do?"
@@ -78,7 +78,7 @@ viewForm model =
             , value model.newTodo
             ]
             []
-        , button [ onClick Save ] [ text "Do!" ]
+        , button [ type_ "submit" ] [ text "Do!" ]
         ]
 
 
