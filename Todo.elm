@@ -1,7 +1,7 @@
 module Todo exposing (..)
 
 import Html exposing (Html, h1, text, div, form, input, ul, li, button)
-import Html.Attributes exposing (value, class, type_, placeholder, method)
+import Html.Attributes exposing (classList, value, class, type_, placeholder, method)
 import Html.Events exposing (onSubmit, onClick, onInput)
 
 
@@ -50,7 +50,7 @@ update msg model =
 
         Save ->
             { model
-                | todos = Todo 3 model.newTodo False :: model.todos
+                | todos = Todo ((List.length model.todos) + 1) model.newTodo False :: model.todos
                 , newTodo = ""
             }
 
@@ -90,7 +90,7 @@ viewTodos model =
 
 viewTodo : Todo -> Html Msg
 viewTodo todo =
-    li [] [ text todo.text ]
+    li [ classList [ ( "done", todo.completed ) ] ] [ text todo.text ]
 
 
 main : Program Never Model Msg

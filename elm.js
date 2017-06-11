@@ -12419,7 +12419,16 @@ var _elm_lang$html$Html_Events$Options = F2(
 var _user$project$Todo$viewTodo = function (todo) {
 	return A2(
 		_elm_lang$html$Html$li,
-		{ctor: '[]'},
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html_Attributes$classList(
+				{
+					ctor: '::',
+					_0: {ctor: '_Tuple2', _0: 'done', _1: todo.completed},
+					_1: {ctor: '[]'}
+				}),
+			_1: {ctor: '[]'}
+		},
 		{
 			ctor: '::',
 			_0: _elm_lang$html$Html$text(todo.text),
@@ -12470,7 +12479,11 @@ var _user$project$Todo$update = F2(
 				{
 					todos: {
 						ctor: '::',
-						_0: A3(_user$project$Todo$Todo, 3, model.newTodo, false),
+						_0: A3(
+							_user$project$Todo$Todo,
+							_elm_lang$core$List$length(model.todos) + 1,
+							model.newTodo,
+							false),
 						_1: model.todos
 					},
 					newTodo: ''
