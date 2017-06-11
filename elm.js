@@ -8145,103 +8145,103 @@ var _elm_lang$html$Html_Attributes$classList = function (list) {
 };
 var _elm_lang$html$Html_Attributes$style = _elm_lang$virtual_dom$VirtualDom$style;
 
-var _user$project$Todo$view = A2(
-	_elm_lang$html$Html$div,
-	{
-		ctor: '::',
-		_0: _elm_lang$html$Html_Attributes$class('container'),
-		_1: {ctor: '[]'}
-	},
-	{
-		ctor: '::',
-		_0: A2(
-			_elm_lang$html$Html$h1,
-			{ctor: '[]'},
-			{
-				ctor: '::',
-				_0: _elm_lang$html$Html$text('Elm Todo'),
-				_1: {ctor: '[]'}
-			}),
-		_1: {
+var _user$project$Todo$viewTodo = function (todo) {
+	return A2(
+		_elm_lang$html$Html$li,
+		{ctor: '[]'},
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html$text(todo.text),
+			_1: {ctor: '[]'}
+		});
+};
+var _user$project$Todo$view = function (model) {
+	return A2(
+		_elm_lang$html$Html$div,
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html_Attributes$class('container'),
+			_1: {ctor: '[]'}
+		},
+		{
 			ctor: '::',
 			_0: A2(
-				_elm_lang$html$Html$form,
+				_elm_lang$html$Html$h1,
 				{ctor: '[]'},
 				{
 					ctor: '::',
-					_0: A2(
-						_elm_lang$html$Html$input,
-						{
-							ctor: '::',
-							_0: _elm_lang$html$Html_Attributes$type_('text'),
-							_1: {
-								ctor: '::',
-								_0: _elm_lang$html$Html_Attributes$placeholder('What you want to do?'),
-								_1: {ctor: '[]'}
-							}
-						},
-						{ctor: '[]'}),
-					_1: {
+					_0: _elm_lang$html$Html$text('Elm Todo'),
+					_1: {ctor: '[]'}
+				}),
+			_1: {
+				ctor: '::',
+				_0: A2(
+					_elm_lang$html$Html$form,
+					{ctor: '[]'},
+					{
 						ctor: '::',
 						_0: A2(
 							_elm_lang$html$Html$input,
 							{
 								ctor: '::',
-								_0: _elm_lang$html$Html_Attributes$type_('submit'),
-								_1: {ctor: '[]'}
+								_0: _elm_lang$html$Html_Attributes$type_('text'),
+								_1: {
+									ctor: '::',
+									_0: _elm_lang$html$Html_Attributes$placeholder('What you want to do?'),
+									_1: {ctor: '[]'}
+								}
 							},
-							{
-								ctor: '::',
-								_0: _elm_lang$html$Html$text('Do!'),
-								_1: {ctor: '[]'}
-							}),
-						_1: {ctor: '[]'}
-					}
-				}),
-			_1: {
-				ctor: '::',
-				_0: A2(
-					_elm_lang$html$Html$ul,
-					{ctor: '[]'},
-					{
-						ctor: '::',
-						_0: A2(
-							_elm_lang$html$Html$li,
-							{ctor: '[]'},
-							{
-								ctor: '::',
-								_0: _elm_lang$html$Html$text('todo'),
-								_1: {ctor: '[]'}
-							}),
+							{ctor: '[]'}),
 						_1: {
 							ctor: '::',
 							_0: A2(
-								_elm_lang$html$Html$li,
-								{ctor: '[]'},
+								_elm_lang$html$Html$input,
 								{
 									ctor: '::',
-									_0: _elm_lang$html$Html$text('todo'),
+									_0: _elm_lang$html$Html_Attributes$type_('submit'),
+									_1: {ctor: '[]'}
+								},
+								{
+									ctor: '::',
+									_0: _elm_lang$html$Html$text('Do!'),
 									_1: {ctor: '[]'}
 								}),
-							_1: {
-								ctor: '::',
-								_0: A2(
-									_elm_lang$html$Html$li,
-									{ctor: '[]'},
-									{
-										ctor: '::',
-										_0: _elm_lang$html$Html$text('todo'),
-										_1: {ctor: '[]'}
-									}),
-								_1: {ctor: '[]'}
-							}
+							_1: {ctor: '[]'}
 						}
 					}),
+				_1: {
+					ctor: '::',
+					_0: A2(
+						_elm_lang$html$Html$ul,
+						{ctor: '[]'},
+						A2(
+							_elm_lang$core$List$map,
+							function (todo) {
+								return _user$project$Todo$viewTodo(todo);
+							},
+							model.todos)),
+					_1: {ctor: '[]'}
+				}
+			}
+		});
+};
+var _user$project$Todo$initialModel = {
+	todos: {
+		ctor: '::',
+		_0: {id: 1, text: 'Mandi', completed: false},
+		_1: {
+			ctor: '::',
+			_0: {id: 2, text: 'Makan', completed: false},
+			_1: {
+				ctor: '::',
+				_0: {id: 3, text: 'Coding', completed: true},
 				_1: {ctor: '[]'}
 			}
 		}
-	});
-var _user$project$Todo$main = _elm_lang$virtual_dom$Native_VirtualDom.staticProgram(_user$project$Todo$view);
+	}
+};
+var _user$project$Todo$main = _elm_lang$virtual_dom$Native_VirtualDom.staticProgram(
+	_user$project$Todo$view(_user$project$Todo$initialModel));
 
 var Elm = {};
 Elm['Todo'] = Elm['Todo'] || {};
